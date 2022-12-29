@@ -9,9 +9,9 @@ import java.util.*;
 @Component
 public class MovieRepository {
 
-    private Map<String,Movie> movies;
-    private Map<String,Director> directors;
-    private Map<String, List<String>> directorMoviesMapping;
+    private Map<String,Movie> movies=new HashMap<>();
+    private Map<String,Director> directors=new HashMap<>();
+    private Map<String, List<String>> directorMoviesMapping=new HashMap<>();
 
 
     public void add(Movie movie){
@@ -24,16 +24,22 @@ public class MovieRepository {
     }
 
     public void saveMovieDirectorPair(String movie, String director) {
-        if(movies.containsKey(movie) && directors.containsKey(director)){
-            movies.put(movie,movies.get(movie));
-            directors.put(director,directors.get(director));
+//        if(movies.containsKey(movie) && directors.containsKey(director)){
+//            movies.put(movie,movies.get(movie));
+//            directors.put(director,directors.get(director));
+//
+//            List<String> currMovies=new ArrayList<String>();
+//            if(directorMoviesMapping.containsKey(director))
+//                currMovies = directorMoviesMapping.get(director);
+//
+//            currMovies.add(movie);
+//            directorMoviesMapping.put(director, currMovies);
 
-            List<String> currMovies=new ArrayList<String>();
-            if(directorMoviesMapping.containsKey(director))
-                currMovies = directorMoviesMapping.get(director);
-
-            currMovies.add(movie);
-            directorMoviesMapping.put(director, currMovies);
+            if(movies.containsKey(movie) && directors.containsKey(director)){
+                List<String> movieList=new ArrayList<>();
+                movieList=directorMoviesMapping.get(director);
+                movieList.add(movie);
+                directorMoviesMapping.put(director,movieList);
         }
     }
 
@@ -74,22 +80,18 @@ public class MovieRepository {
         }
     }
 
-    public void deleteAllDirector() {
+    public void deleteAllMovies() {
         Set<String> movieSet=new HashSet<String>();
 
         for(String director : directorMoviesMapping.keySet()){
             for(String movie : directorMoviesMapping.keySet()){
                 movieSet.add(movie);
             }
-
         }
-
         for(String movie : movieSet){
             if(movies.containsKey(movie)){
                 movies.remove(movie);
             }
         }
-
-
     }
 }

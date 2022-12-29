@@ -44,8 +44,8 @@ public class MovieService {
     public void deleteDirector(String directorName){
         movieRepository.deleteDirector(directorName);
     }
-    public void deleteAllDirector(){
-        movieRepository.deleteAllDirector();
+    public void deleteAllMovies(){
+        movieRepository.deleteAllMovies();
     }
 }
 
