@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 import java.util.*;
 
 @Repository
-@Component
 public class MovieRepository {
 
     private Map<String,Movie> movies=new HashMap<>();
@@ -24,17 +23,6 @@ public class MovieRepository {
     }
 
     public void saveMovieDirectorPair(String movie, String director) {
-//        if(movies.containsKey(movie) && directors.containsKey(director)){
-//            movies.put(movie,movies.get(movie));
-//            directors.put(director,directors.get(director));
-//
-//            List<String> currMovies=new ArrayList<String>();
-//            if(directorMoviesMapping.containsKey(director))
-//                currMovies = directorMoviesMapping.get(director);
-//
-//            currMovies.add(movie);
-//            directorMoviesMapping.put(director, currMovies);
-
             if(movies.containsKey(movie) && directors.containsKey(director)){
                 List<String> movieList=new ArrayList<>();
                 movieList=directorMoviesMapping.get(director);
@@ -93,5 +81,28 @@ public class MovieRepository {
                 movies.remove(movie);
             }
         }
+    }
+
+    public String findDirectorFromMovieName(String movie) {
+
+        for(String director : directorMoviesMapping.keySet()){
+            for(String movies : directorMoviesMapping.get(director)){
+                    if(movies.equals(movie)){
+                        return director;
+                    }
+            }
+        }
+        return null;
+    }
+
+    public String getDirectorByMovieName(String movieName) {
+
+        for(String director: directorMoviesMapping.keySet()){
+            for(String movie: directorMoviesMapping.get(director)){
+                if(movie.equals(movieName))
+                    return director;
+            }
+        }
+        return null;
     }
 }

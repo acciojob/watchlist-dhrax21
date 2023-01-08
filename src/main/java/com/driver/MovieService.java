@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@Component
 public class MovieService {
 
     @Autowired
@@ -30,6 +29,7 @@ public class MovieService {
         return movieRepository.findMovie(movieName);
     }
 
+
     public Director findDirector(String directorName){
 
         return movieRepository.findDirector(directorName);
@@ -47,5 +47,17 @@ public class MovieService {
     public void deleteAllMovies(){
         movieRepository.deleteAllMovies();
     }
+
+    public String getDirectorByMovieName(String movieName) {
+
+        return movieRepository.getDirectorByMovieName(movieName);
+    }
+
+//    public String findDirectorFromMovie(String movie) {
+//
+//        return movieRepository.findDirectorFromMovieName(movie);
+//    }
+
+
 }
 
